@@ -13,9 +13,13 @@
 
 
 
+import pandas
+import math
+import dimod
+import numpy as np
+from dwave.system import LeapHybridSampler
 
-
-
+api_token = 'DEV-1a546ca54c56c06669335e81b9e804aaae544f1d'
 
 
 '''
@@ -36,10 +40,9 @@
 
 '''
 
-import pandas
-import math
-import dimod
-import numpy as np
+
+
+
 
 def euclidean(node1,node2):
 	d = 0
@@ -135,6 +138,7 @@ for i in range(len(distance_matrix)):
 		v_node = f'node_{node}'
 		bqm.add_variable(v_node, 1.0)
 		v_neighbor = f'node_{neighbor}'
+		bqm.add_variable(v_neighbor, 1.0)
 		if node == 0:
 			div = 1
 		else:
@@ -146,14 +150,30 @@ for i in range(len(distance_matrix)):
 			except:
 				pass
 
-sampler = dimod.ExactSolver()
-l=len(bqm)
-print("l is:",l)
-num = 3
-n_a=np.array(bqm)
-response = sampler.sample(n_a.reshape(3,-1))
+# sampler = dimod.ExactSolver()
+# l=len(bqm)
+# print("l is:",l)
+# num = 3
+# n_a=np.array(bqm)
+# response = sampler.sample(n_a.reshape(3,-1))
 
+# sampler = dimod.ExactSolver()
+# response = sampler.sample(bqm)
+#
+# # Print the results
+# for sample, energy in response.data(fields=['sample', 'energy']):
+#     print(sample, energy)
 
+sampler = LeapHybridSampler(token=api_token)  # Pass the API token here
+response = sampler.sample(bqm)
 
+# Print the results
+for sample, energy in response.data(fields=['sample', 'energy']):
+    print(sample, energy)
 
+max_energy_sample = next(response.samples())
+max_energy = response.first.energy
 
+print("Sample with Maximum Energy:")
+print(max_energy_sample)
+print("Energy:", max_energy)
