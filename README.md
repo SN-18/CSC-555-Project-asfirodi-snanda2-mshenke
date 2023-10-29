@@ -2,7 +2,11 @@
 ## CSC-555 || Social Computing and Decentralized AI || Fall-23
 
 ### Introduction
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Bikesharing is a very relevant problem, typically in places such as Washington, NY, etc, where biking, as a mode of greener transportation, is catching on with fervor. In our study, we aim to predict the best possible allocation of resources within a particular instance, that would yield the best output in terms of fuel consumption and footfall traffic.
+
+We aim to develop a multi-objective agent application that can accept various parameters with regards to the station traffic, charge or fuel consumption, distance from one another, etc and model the most efficient solution for the given landscape.  
+
+We use the bikesharing dataset, as the source of information regarding stations placed around New York City. We use the Binary Quadratic model, to use the quantum techniques of binary offsetting in the quadratic formula and produce the most efficient energy state. The energy state, in turn, optimizes on all the paramemeters of distance, traffic and fuel and produces the most efficient intersection or set, that satisfies them.  
 
 ### More Information 
 More information can be found in our [academic paper](https://drive.google.com/file/d/1nrD7PIMRDk0dbzN9o5G4fXJD6yEJ6j-9/view?usp=sharing) <br><br>
@@ -10,6 +14,38 @@ Author(s) can be contacted:
 Saurabh : snanda2@ncsu.edu
 Abhishek: asfirodi@ncsu.edu
 Marcus  : mshenke@ncsu.edu
+
+
+
+### Instructions to Execute the Program
+<br><br>
+<ol>
+  <li>
+To clone our repository, use 
+    
+``` git-clone https://github.com/SN-18/CSC-555-Project-asfirodi-snanda2-mshenke.git```
+  </li>
+  <li>
+   From a terminal based environment,install the requirements and essential packages, run:
+
+   ```$ pip install -r requirements.txt ```
+  </li>
+
+  <li>
+  If your local system has no IDE present, there are a lot of free IDE's available online, such as [Eclipse](https://www.eclipse.org/ide/). More information can be found at: [Free IDEs](https://www.goodfirms.co/integrated-development-environment-software/blog/best-free-and-open-source-integrated-development-environment-software)
+  </li>
+  <li>
+    Run the command,
+  
+  ``` python main.py ```
+    
+    
+     
+  </li>
+</ol>
+
+
+
 ### Debugging Instructions
 There can be many issues that are causing your program to throw an error or raise an exception. Some of the most common problems are:
 <ul>
@@ -17,15 +53,16 @@ There can be many issues that are causing your program to throw an error or rais
   <li>
   Please Check for the version of Python you are currently using. This can be performed using:
  
-    ``` python --version ```
+  ``` python --version ```
     
 <br>
 It should have an output similar to the following screen:
 
+![Python version](https://github.com/SN-18/CSC-555-Project-asfirodi-snanda2-mshenke/assets/83748468/e4d54136-e98f-4533-a2b4-057d4b1c945c)
 
   If python is not found, it can be installed using:
 
-  ```pip install python```
+  ``` pip install python ```
   <br>
   
   or using the [official website](https://www.python.org/downloads/) 
@@ -34,18 +71,18 @@ It should have an output similar to the following screen:
   <li>
   Please check if the requirements are satisfied using the command:
 
-    ```pip list```
+  ``` pip list```
 
   <br>
   The following is the expected output for the above. 
-  <br>
+  <br><br><br>
 
-  <img width="851" alt="Screenshot 2023-10-02 at 11 10 12 AM" src="https://github.com/SN-18/CSC-555-Project-asfirodi-snanda2-mshenke/assets/83748468/c82b6db0-f5ea-4161-b4aa-8353baf59927" align="left">
- <br>
+  <img width="1000" alt="Screenshot 2023-10-02 at 11 10 12 AM" src="https://github.com/SN-18/CSC-555-Project-asfirodi-snanda2-mshenke/assets/83748468/c82b6db0-f5ea-4161-b4aa-8353baf59927" align="left">
+ <br><br>
   
-  It should, in theory, contain all the packages listed in the requirements.txt. If not, any individual package can be installed using:
+  <br> It should, in theory, contain all the packages listed in the requirements.txt. If not, any individual package can be installed using:
 
-  ```pip install <package_name>```
+  ``` pip install <package_name>```
 <br>
 
 from the terminal.
@@ -54,8 +91,6 @@ from the terminal.
 </ul>
 
 
-### Instructions to Execute the Program
-<br><br>
 
 ### Final Output
 The final output should select the maximum energy, and give the combination of nodes or stations that should be selected at the same time (active at the same time of the day), to get maximum efficiency. The output would look something like this: 
