@@ -163,17 +163,89 @@ for i in range(len(distance_matrix)):
 # # Print the results
 # for sample, energy in response.data(fields=['sample', 'energy']):
 #     print(sample, energy)
+points_to_keep = list(range(l // 2))
+# while len(points_to_keep) >= 10:
+#     # Create a BQM
+#     bqm = dimod.BinaryQuadraticModel.empty(dimod.BINARY)
+#
+#     for i in range(len(points_to_keep)):
+#         for j in range(len(points_to_keep)):
+#             if i == j:
+#                 continue
+#             v_node = f'node_{points_to_keep[i]}'
+#             v_neighbor = f'node_{points_to_keep[j]}'
+#             interaction = (points_to_keep[i] - points_to_keep[j]) // (points_to_keep[i] + 1) + distance_matrix[points_to_keep[i]][points_to_keep[j]]
+#             if interaction != 0:
+#                 bqm.add_variable(v_node, 1.0)
+#                 bqm.add_variable(v_neighbor, 1.0)
+#                 bqm.add_interaction(v_node, v_neighbor, interaction)
+#
+#     # Solve the BQM to find the sample with maximum energy
+#     sampler = dimod.ExactSolver()
+#     response = sampler.sample(bqm, num_reads=1)  # Set num_reads=1 to find a single maximum energy sample
+#
+#     # Get the sample with maximum energy
+#     max_energy_sample = next(response.samples())
+#     max_energy = response.first.energy
+#
+#     # Remove the point with maximum energy
+#     max_energy_point = max_energy_sample.keys()
+#     points_to_keep.remove(int(max_energy_point[0].split('_')[1]))
+#
+#     print("Sample with Maximum Energy:")
+#     print(max_energy_sample)
+#     print("Energy:", max_energy)
+#
+# print("Remaining Points:")
+# print(points_to_keep)
 
-sampler = LeapHybridSampler(token=api_token)  # Pass the API token here
-response = sampler.sample(bqm)
+while len(points_to_keep) >= 10:
+    # Create a BQM
+    bqm = dimod.BinaryQuadraticModel.empty(dimod.BINARY)
+
+    for i in range(len(points_to_keep)):
+        for j in range(len(points_to_keep)):
+            if i == j:
+                continue
+            v_node = f'node_{points_to_keep[i]}'
+            v_neighbor = f'node_{points_to_keep[j]}'
+            interaction = (points_to_keep[i] - points_to_keep[j]) // (points_to_keep[i] + 1) + distance_matrix[points_to_keep[i]][points_to_keep[j]]
+            if interaction != 0:
+                bqm.add_variable(v_node, 1.0)
+                bqm.add_variable(v_neighbor, 1.0)
+                bqm.add_interaction(v_node, v_neighbor, interaction)
+
+    # Use the Leap Hybrid Sampler
+    sampler = LeapHybridSampler(token=api_token)
+    response = sampler.sample(bqm)
+
+    # Get the sample with maximum energy
+    max_energy_sample = next(response.samples())
+    max_energy = response.first.energy
+
+    # Remove the point with maximum energy
+    max_energy_point = list(max_energy_sample.keys())[0]
+    point_to_remove = int(max_energy_point.split('_')[1])
+    points_to_keep.remove(point_to_remove)
+
+    print("Sample with Maximum Energy:")
+    print(max_energy_sample)
+    print("Energy:", max_energy)
+
+print("Remaining Points:")
+print(points_to_keep)
+
+
+# sampler = LeapHybridSampler(token=api_token)  # Pass the API token here
+# response = sampler.sample(bqm)
 
 # Print the results
-for sample, energy in response.data(fields=['sample', 'energy']):
-    print(sample, energy)
-
-max_energy_sample = next(response.samples())
-max_energy = response.first.energy
-
-print("Sample with Maximum Energy:")
-print(max_energy_sample)
-print("Energy:", max_energy)
+# for sample, energy in response.data(fields=['sample', 'energy']):
+#     print(sample, energy)
+#
+# max_energy_sample = next(response.samples())
+# max_energy = response.first.energy
+#
+# print("Sample with Maximum Energy:")
+# print(max_energy_sample)
+# print("Energy:", max_energy)
